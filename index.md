@@ -1,5 +1,7 @@
-Here you can say lots of fun things about your site.
+I plan to use this as a place to document
 
-Maybe say a some things about yourself.
+all the things I do and projects I do.
 
-Or maybe what you plan to blog about.
+I don't plan on making this for everybody
+
+to use to so its going to be pretty helter-skelter.
