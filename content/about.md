@@ -1,5 +1,0 @@
-+++
-date = '2025-06-18T20:59:26Z'
-draft = true
-title = 'About'
-+++
