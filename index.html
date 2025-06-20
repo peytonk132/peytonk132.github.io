@@ -1,5 +1,867 @@
 <!DOCTYPE html>
-<html>
-  
-</html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline Development | Innovative Software Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #0056b3;
+            --secondary: #0d8bf2;
+            --accent: #ff6b35;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-accent {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            color: var(--accent);
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .section-title {
+            margin-bottom: 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: white;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(rgba(0, 86, 179, 0.9), rgba(13, 139, 242, 0.8)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* About Section */
+        .about {
+            background-color: white;
+        }
+        
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 450px;
+            background: linear-gradient(45deg, #e0e0e0, #f5f5f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .about-content {
+            flex: 1;
+        }
+        
+        .about-content h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .features {
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-icon {
+            background: var(--light);
+            color: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Catalogue Section */
+        .catalogue {
+            background: var(--light-gray);
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .product-content {
+            padding: 25px;
+        }
+        
+        .product-content h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .product-content .btn {
+            margin-top: 15px;
+            padding: 8px 20px;
+        }
+        
+        /* Survey Section */
+        .survey {
+            background: white;
+        }
+        
+        .survey-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .survey-form .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .survey-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .survey-form input,
+        .survey-form textarea,
+        .survey-form select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .survey-form input:focus,
+        .survey-form textarea:focus,
+        .survey-form select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+        
+        .survey-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        .footer-links h4 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-container {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: all 0.4s ease;
+            }
+            
+            nav ul.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .survey-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-code-branch"></i>
+                <h1>Pipeline Development</h1>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#catalogue">Products</a></li>
+                    <li><a href="#survey">Survey</a></li>
+                    <li><a href="#" class="btn btn-accent">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <h1>Innovative Software Solutions</h1>
+            <p>Pipeline Development creates cutting-edge software tools that streamline your workflow, enhance productivity, and drive business growth.</p>
+            <a href="#catalogue" class="btn">Explore Our Products</a>
+            <a href="#survey" class="btn btn-accent">Provide Feedback</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About Pipeline Development</h2>
+            <div class="about-container">
+                <div class="about-image">
+                    <div>
+                        <i class="fas fa-user-circle fa-5x" style="margin-bottom: 20px;"></i>
+                        <p>Founder & Lead Developer</p>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <h3>We Build Solutions That Drive Success</h3>
+                    <p>Pipeline Development was founded in 2015 with a mission to create intuitive, powerful software that solves real business challenges. Our team of expert developers and designers work together to craft solutions that are both innovative and user-friendly.</p>
+                    <p>With over 8 years of experience in the industry, we've helped hundreds of businesses optimize their operations, improve efficiency, and achieve their strategic goals through our custom software solutions.</p>
+                    
+                    <div class="features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h4>Innovative Approach</h4>
+                                <p>We stay ahead of technology trends to deliver cutting-edge solutions.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div>
+                                <h4>Client-Focused</h4>
+                                <p>Your success is our priority. We work closely with you to understand your unique needs.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div>
+                                <h4>Fast & Efficient</h4>
+                                <p>We deliver high-quality solutions on time and within budget.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalogue Section -->
+    <section class="catalogue" id="catalogue">
+        <div class="container">
+            <h2>Our Software Catalogue</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 40px;">Discover our range of powerful software solutions designed to meet your business needs.</p>
+            
+            <div class="products">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>ProjectFlow</h3>
+                        <p>Comprehensive project management solution with agile workflows, resource allocation, and real-time reporting.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>Analytix Pro</h3>
+                        <p>Advanced business intelligence platform that transforms your data into actionable insights and visualizations.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>SecureNet</h3>
+                        <p>Enterprise-grade security suite with threat detection, encryption, and compliance management tools.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>TeamSync</h3>
+                        <p>Collaboration platform that connects your distributed teams with seamless communication and task management.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>CommercePro</h3>
+                        <p>Complete e-commerce solution with inventory management, payment processing, and customer analytics.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="product-content">
+                        <h3>CloudDeploy</h3>
+                        <p>Cloud infrastructure management tool that simplifies deployment, scaling, and monitoring of applications.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Survey Section -->
+    <section class="survey" id="survey">
+        <div class="container">
+            <h2>Customer Feedback Survey</h2>
+            <p class="text-center" style="max-width: 700px; margin: 0 auto 40px;">Help us improve our products and services by sharing your experience with us.</p>
+            
+            <div class="survey-container">
+                <form class="survey-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product">Which product did you use?</label>
+                        <select id="product" required>
+                            <option value="">Select a product</option>
+                            <option value="projectflow">ProjectFlow</option>
+                            <option value="analytix">Analytix Pro</option>
+                            <option value="securenet">SecureNet</option>
+                            <option value="teamsync">TeamSync</option>
+                            <option value="commerce">CommercePro</option>
+                            <option value="cloud">CloudDeploy</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>How would you rate your overall experience?</label>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <label style="cursor: pointer;"><input type="radio" name="rating" value="1"> 1</label>
+                            <label style="cursor: pointer;"><input type="radio" name="rating" value="2"> 2</label>
+                            <label style="cursor: pointer;"><input type="radio" name="rating" value="3"> 3</label>
+                            <label style="cursor: pointer;"><input type="radio" name="rating" value="4"> 4</label>
+                            <label style="cursor: pointer;"><input type="radio" name="rating" value="5" checked> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What features would you like to see in future updates?</label>
+                        <textarea id="features"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>How likely are you to recommend our products to others?</label>
+                        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                            <label style="cursor: pointer;"><input type="radio" name="recommend" value="1"> 1</label>
+                            <label style="cursor: pointer;"><input type="radio" name="recommend" value="2"> 2</label>
+                            <label style="cursor: pointer;"><input type="radio" name="recommend" value="3"> 3</label>
+                            <label style="cursor: pointer;"><input type="radio" name="recommend" value="4"> 4</label>
+                            <label style="cursor: pointer;"><input type="radio" name="recommend" value="5" checked> 5</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comments">Additional Comments</label>
+                        <textarea id="comments"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn submit-btn">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-links">
+                    <div class="footer-logo">
+                        <i class="fas fa-code-branch"></i>
+                        <h3>Pipeline Development</h3>
+                    </div>
+                    <p>Creating innovative software solutions that transform businesses and drive growth through technology excellence.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#catalogue">Products</a></li>
+                        <li><a href="#survey">Feedback</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Our Products</h4>
+                    <ul>
+                        <li><a href="#">ProjectFlow</a></li>
+                        <li><a href="#">Analytix Pro</a></li>
+                        <li><a href="#">SecureNet</a></li>
+                        <li><a href="#">TeamSync</a></li>
+                        <li><a href="#">CommercePro</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Avenue, San Francisco</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@pipeline-dev.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Pipeline Development. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission
+        const surveyForm = document.querySelector('.survey-form');
+        surveyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your feedback! Your responses have been submitted successfully.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
